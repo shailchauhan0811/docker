@@ -2,16 +2,24 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo Logging into ECR...
+      - echo Logging into Amazon ECR...
+      - $(aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 381491836340.dkr.ecr.ap-south-1.amazonaws.com)
+
   build:
     commands:
-      - echo Building the Docker image...
+      - echo Building Docker image...
       - docker build -t my-app .
-      - docker tag my-app:latest 381491836340.dkr.ecr.ap-south-1.amazonaws.com/simple-docker-service-06a719e9e7d7/my-app-repo:latest
+
   post_build:
     commands:
-      - echo Pushing Docker image to ECR...
+      - echo Tagging the Docker image...
+      - docker tag my-app:latest 381491836340.dkr.ecr.ap-south-1.amazonaws.com/simple-docker-service-06a719e9e7d7/my-app-repo:latest
+      - echo Pushing the Docker image to ECR...
       - docker push 381491836340.dkr.ecr.ap-south-1.amazonaws.com/simple-docker-service-06a719e9e7d7/my-app-repo:latest
+
 artifacts:
   files:
     - '**/*'
+
+
+    
