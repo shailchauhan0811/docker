@@ -1,10 +1,15 @@
 version: 0.2
 phases:
+  phases:
   install:
     commands:
-      - echo Logging into Amazon ECR...
-      - $(aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 381491836340.dkr.ecr.ap-south-1.amazonaws.com)
-
+      - echo "Installing Docker"
+      - yum install -y docker
+      - service docker start
+      - docker --version
+      - aws --version
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 381491836340.dkr.ecr.ap-south-1.amazonaws.com
+      - docker info
   build:
     commands:
       - echo Building Docker image...
