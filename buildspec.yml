@@ -16,9 +16,10 @@ phases:
   post_build:
     commands:
       - echo Tagging the Docker image...
-      - docker tag my-app:latest 381491836340.dkr.ecr.ap-south-1.amazonaws.com/simple-docker-service-06a719e9e7d7/my-app-repo:latest
+      - docker tag my-app:latest 123456789012.dkr.ecr.ap-south-1.amazonaws.com/my-repo:latest
+
       - echo Pushing the Docker image to ECR...
-      - docker push 381491836340.dkr.ecr.ap-south-1.amazonaws.com/simple-docker-service-06a719e9e7d7/my-app-repo:latest
+      - docker push 123456789012.dkr.ecr.ap-south-1.amazonaws.com/my-repo:latest
 
 artifacts:
   files:
